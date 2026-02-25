@@ -11,7 +11,9 @@ import scipy.io.wavfile as wavfile
 import scipy.fftpack as fftpk
 
 # Load the saved model
-model = pickle.load(open("C:\\Users\\Akind\\Documents\\ML App\\model\\machine_failure_detection_model3.pkl",'rb'))
+import os
+_model_path = os.path.join(os.path.dirname(__file__), "..", "..", "models", "machine_failure_detection_model3.pkl")
+model = pickle.load(open(_model_path, 'rb'))
 
 app = FastAPI()
 

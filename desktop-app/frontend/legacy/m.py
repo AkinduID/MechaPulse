@@ -15,19 +15,19 @@ def main():
             st.write("Prediction:", response.json()["prediction"])
             if response.json()["prediction"] == 1.0:
                 st.markdown("**Machine ID: Off condition with noise**")
-                # st.image("D:\\Documents\\SLIoT\\ML App\\ui\\off.png", caption="Off condition with noise", width=200)
+                # st.image("../assets/images/off.png", caption="Off condition with noise", width=200)
                 # send_error_request("Off condition")
             elif response.json()["prediction"] == 2.0:
                 st.markdown("**Machine ID: Healthy condition**")
-                # st.image("D:\\Documents\\SLIoT\\ML App\\ui\\good_.png", caption="Healthy condition", width=200)
+                # st.image("../assets/images/good_.png", caption="Healthy condition", width=200)
                 # send_error_request("Healthy condition")
             elif response.json()["prediction"] == 3.0:
                 st.markdown("**Machine ID: Bearing Fault**")
-                # st.image("D:\\Documents\\SLIoT\\ML App\\ui\\mfault1_.png", caption="Bearing Fault", width=200)
+                # st.image("../assets/images/mfault1_.png", caption="Bearing Fault", width=200)
                 # send_error_request("Bearing Fault")
             else:
                 st.markdown("**Machine ID: Fan Fault**")
-                # st.image("D:\\Documents\\SLIoT\\ML App\\ui\\mfault2.png", caption="Fan Fault", width=200)
+                # st.image("../assets/images/mfault2.png", caption="Fan Fault", width=200)
                 # send_error_request("Fan Fault")
         else:
             st.error("Failed to start recording")
