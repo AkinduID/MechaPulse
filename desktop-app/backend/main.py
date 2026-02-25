@@ -8,7 +8,7 @@ import pandas as pd
 
 # loading the saved model
 import os
-_model_path = os.path.join(os.path.dirname(__file__), "..", "models", "machine_failure_detection_model3.pkl")
+_model_path = os.path.join(os.path.dirname(__file__), "..", "trained_models", "machine_failure_detection_model3.pkl")
 model = pickle.load(open(_model_path, 'rb'))
 
 app = FastAPI()
