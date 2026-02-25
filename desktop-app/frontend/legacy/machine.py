@@ -100,19 +100,19 @@ def main():
             output.text(new_preds)
             if new_preds == 1.0:
                 st.markdown("**Machine ID: Off condition with noise**")
-                st.image("../assets/images/off.png", caption="Off condition with noise", width=200)
+                st.image("../../notebooks/assets/images/off.png", caption="Off condition with noise", width=200)
                 send_error_request("Off condition")
             elif new_preds == 2.0:
                 st.markdown("**Machine ID: Healthy condition**")
-                st.image("../assets/images/good_.png", caption="Healthy condition", width=200)
+                st.image("../../notebooks/assets/images/good_.png", caption="Healthy condition", width=200)
                 send_error_request("Healthy condition")
             elif new_preds == 3.0:
                 st.markdown("**Machine ID: Bearing Fault**")
-                st.image("../assets/images/mfault1_.png", caption="Bearing Fault", width=200)
+                st.image("../../notebooks/assets/images/mfault1_.png", caption="Bearing Fault", width=200)
                 send_error_request("Bearing Fault")
             else:
                 st.markdown("**Machine ID: Fan Fault**")
-                st.image("../assets/images/mfault2.png", caption="Fan Fault", width=200)
+                st.image("../../notebooks/assets/images/mfault2.png", caption="Fan Fault", width=200)
                 send_error_request("Fan Fault")
             # st.write(predictions)
             time.sleep(5)
