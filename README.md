@@ -8,10 +8,11 @@
 <a href="https://www.espressif.com/en/products/socs/esp32"><img src="https://img.shields.io/badge/ESP32-000000?style=flat&logo=espressif&logoColor=white"/></a>
 <a href="https://code.visualstudio.com/"><img src="https://img.shields.io/badge/VS%20Code-007ACC?style=flat&logo=visual-studio-code&logoColor=white"/></a>
 <a href="https://jupyter.org/"><img src="https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white"/></a>
+<a href="https://mqtt.org/"><img src="https://img.shields.io/badge/MQTT-660066?style=flat&logo=MQTT&logoColor=white"/></a>
 
 MechaPulse is an Industrial IoT system that uses acoustic (sound) and thermal analysis to detect faults in rotating machinery in real time. An array of ESP32 embedded devices is deployed across industrial machines; each device continuously monitors machine sound and temperature and applies a TinyML inference model to predict potential faults. Alerts and sensor data are forwarded to a central dashboard for fleet-wide monitoring.
 
-> **Developed for SLIoT Challane 2024.**
+> **Developed for SLIoT Challange 2024.**
 
 <img src="https://github.com/AkinduID/MechaPulse/blob/main/docs/mechapulse.png"/>
 ---
