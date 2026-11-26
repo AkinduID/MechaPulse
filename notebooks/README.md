@@ -45,10 +45,10 @@ notebooks/
 
 ## Prerequisites
 
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and the notebook dependency group from the repository root:
+
 ```bash
-pip install jupyter notebook \
-            scikit-learn pandas numpy \
-            matplotlib seaborn scipy
+uv sync --group notebooks
 ```
 
 ---
@@ -155,7 +155,7 @@ Each row in a dataset corresponds to one 5-second audio window:
 
 ```bash
 cd notebooks
-jupyter notebook
+uv run --project .. --group notebooks jupyter notebook
 ```
 
 Open any notebook in the Jupyter interface and run all cells from top to bottom (`Kernel → Restart & Run All`).
@@ -163,5 +163,5 @@ Open any notebook in the Jupyter interface and run all cells from top to bottom 
 For batch execution (CI / automated validation):
 
 ```bash
-jupyter nbconvert --to notebook --execute --inplace notebooks/*.ipynb
+uv run --project .. --group notebooks jupyter nbconvert --to notebook --execute --inplace *.ipynb
 ```

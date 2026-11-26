@@ -151,7 +151,7 @@ Automated tests (if added):
 
 ```bash
 cd desktop-app
-pytest
+uv run --project .. --with pytest pytest
 ```
 
 ### Firmware
@@ -168,7 +168,10 @@ pio test
 Re-run all notebook cells from top to bottom to verify they execute without errors:
 
 ```bash
-jupyter nbconvert --to notebook --execute notebooks/*.ipynb
+# Return to the repository root from desktop-app
+cd ..
+
+uv run --project . --group notebooks jupyter nbconvert --to notebook --execute notebooks/*.ipynb
 ```
 
 ---

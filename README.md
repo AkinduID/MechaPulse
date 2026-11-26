@@ -121,15 +121,21 @@ MechaPulse/
 | Component | Requirement |
 |-----------|-------------|
 | Python    | ≥ 3.9       |
+| uv        | latest      |
 | PlatformIO CLI | latest |
 | MQTT Broker (Mosquitto) | any version |
 | ESP32 DevKit | any variant |
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) before continuing.
 
 ### 1 — Clone the repository
 
 ```bash
 git clone https://github.com/AkinduID/MechaPulse.git
 cd MechaPulse
+
+# Install the desktop application dependencies
+uv sync
 ```
 
 ### 2 — Set up the Desktop Application
@@ -137,15 +143,11 @@ cd MechaPulse
 ```bash
 cd desktop-app
 
-# Install Python dependencies
-pip install fastapi uvicorn pydantic numpy pandas scikit-learn \
-            streamlit sounddevice soundfile scipy
-
 # Start the backend API server
-python backend/main.py          # runs on http://localhost:8000
+uv run --project .. python backend/main.py          # runs on http://localhost:8000
 
 # In a separate terminal, start the Streamlit frontend
-streamlit run frontend/main.py  # runs on http://localhost:8501
+uv run --project .. streamlit run frontend/main.py  # runs on http://localhost:8501
 ```
 
 ### 3 — Flash the ESP32 Firmware
@@ -160,9 +162,14 @@ pio run --target upload
 ### 4 — Run the ML Notebooks
 
 ```bash
+# Return to the repository root from device-firmware
+cd ..
+
+# From the repository root, install the notebook dependencies
+uv sync --group notebooks
+
 cd notebooks
-pip install jupyter scikit-learn pandas numpy matplotlib scipy
-jupyter notebook
+uv run --project .. --group notebooks jupyter notebook
 ```
 
 See [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md) for full environment setup and configuration options.
