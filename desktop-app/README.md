@@ -51,14 +51,14 @@ desktop-app/
 
 ```bash
 cd desktop-app
-python backend/main.py
+uv run --project .. python backend/main.py
 ```
 
 **Full-featured server** (also supports local microphone recording):
 
 ```bash
 cd desktop-app
-python -m uvicorn backend.api.app:app --reload --port 8000
+uv run --project .. python -m uvicorn backend.api.app:app --reload --port 8000
 ```
 
 Both servers listen on port `8000` by default.
@@ -94,7 +94,7 @@ The model path is resolved relative to the server file at startup, so the server
 
 ```bash
 cd desktop-app
-streamlit run frontend/main.py
+uv run --project .. streamlit run frontend/main.py
 ```
 
 The app opens automatically at `http://localhost:8501`. Use the left sidebar to navigate between pages.
@@ -113,13 +113,10 @@ The app opens automatically at `http://localhost:8501`. Use the left sidebar to 
 
 ## Dependencies
 
-Install all required packages from the `desktop-app` directory:
+Install the desktop application dependencies once from the repository root:
 
 ```bash
-pip install fastapi uvicorn pydantic \
-            numpy pandas scikit-learn \
-            streamlit \
-            sounddevice soundfile scipy
+uv sync
 ```
 
 | Package | Version Constraint | Purpose |

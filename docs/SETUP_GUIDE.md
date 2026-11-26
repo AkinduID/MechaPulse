@@ -26,10 +26,12 @@ This guide walks you through setting up every component of MechaPulse from scrat
 | Tool | Version | Purpose |
 |------|---------|---------|
 | Python | ≥ 3.9 | Backend API, Streamlit frontend, notebooks |
-| pip | latest | Python package management |
+| uv | latest | Python package and environment management |
 | PlatformIO Core (CLI) | latest | ESP32 firmware build & flash |
 | Mosquitto (or any MQTT broker) | any | Message broker for device telemetry |
 | Git | any | Cloning the repository |
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) before continuing.
 
 Optional but recommended:
 - **VS Code** with the PlatformIO and Python extensions for firmware and backend development.
@@ -42,6 +44,9 @@ Optional but recommended:
 ```bash
 git clone https://github.com/AkinduID/MechaPulse.git
 cd MechaPulse
+
+# Create the project environment and install desktop application dependencies
+uv sync
 ```
 
 ---
@@ -50,25 +55,7 @@ cd MechaPulse
 
 ### Python Environment
 
-It is strongly recommended to use a virtual environment to isolate dependencies.
-
-```bash
-cd desktop-app
-
-python -m venv .venv
-source .venv/bin/activate        # Linux / macOS
-# .venv\Scripts\activate.bat     # Windows (cmd)
-# .venv\Scripts\Activate.ps1     # Windows (PowerShell)
-```
-
-Install all required packages:
-
-```bash
-pip install fastapi uvicorn pydantic \
-            numpy pandas scikit-learn \
-            streamlit \
-            sounddevice soundfile scipy
-```
+The root `uv sync` command creates and manages the project's virtual environment. From `desktop-app`, run the application through `uv` with `--project ..`.
 
 | Package | Purpose |
 |---------|---------|
@@ -89,14 +76,14 @@ The lightweight server (`backend/main.py`) accepts pre-computed feature vectors:
 
 ```bash
 # From the desktop-app directory
-python backend/main.py
+uv run --project .. python backend/main.py
 # API available at http://localhost:8000
 ```
 
 The full-featured server (`backend/api/app.py`) additionally supports local audio recording:
 
 ```bash
-python -m uvicorn backend.api.app:app --reload --port 8000
+uv run --project .. python -m uvicorn backend.api.app:app --reload --port 8000
 ```
 
 Verify the server is running:
@@ -110,7 +97,7 @@ curl http://localhost:8000/
 
 ```bash
 # From the desktop-app directory
-streamlit run frontend/main.py
+uv run --project .. streamlit run frontend/main.py
 ```
 
 The dashboard will open automatically in your default browser at `http://localhost:8501`.
@@ -124,7 +111,7 @@ The dashboard will open automatically in your default browser at `http://localho
 Install PlatformIO Core:
 
 ```bash
-pip install platformio
+uv tool install platformio
 ```
 
 Or install the [PlatformIO VS Code extension](https://platformio.org/install/ide?install=vscode).
@@ -210,16 +197,14 @@ mosquitto_pub -h localhost -t "esp/test" -m "hello" -u <username> -P <password>
 ## ML Notebooks Setup
 
 ```bash
+# Return to the repository root from device-firmware
+cd ..
+
+# From the repository root, install notebook dependencies into the project environment
+uv sync --group notebooks
+
 cd notebooks
-
-python -m venv .venv
-source .venv/bin/activate
-
-pip install jupyter notebook \
-            scikit-learn pandas numpy \
-            matplotlib seaborn scipy
-
-jupyter notebook
+uv run --project .. --group notebooks jupyter notebook
 ```
 
 Open any of the following notebooks in the Jupyter interface:
@@ -257,9 +242,9 @@ Open any of the following notebooks in the Jupyter interface:
 
 | Symptom | Likely Cause | Resolution |
 |---------|-------------|------------|
-| `ModuleNotFoundError: sounddevice` | Package not installed | `pip install sounddevice soundfile` |
+| `ModuleNotFoundError: sounddevice` | Dependencies not synced | Run `uv sync` from the repository root |
 | Model file not found | Wrong working directory | Run from the `desktop-app` directory |
 | ESP32 not connecting to WiFi | Incorrect credentials | Double-check `ssid` / `password` in `main.cpp` |
 | MQTT connection refused | Broker not running or wrong IP | Start the broker; verify `mqttServer` IP |
-| Streamlit page not loading | Frontend not started | Run `streamlit run frontend/main.py` |
+| Streamlit page not loading | Frontend not started | From `desktop-app`, run `uv run --project .. streamlit run frontend/main.py` |
 | `422 Unprocessable Entity` from API | Missing or wrong-type fields | Ensure all 8 float fields are present in the request body |

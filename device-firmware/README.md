@@ -88,7 +88,7 @@ const char* mqttPassword = "your_mqtt_password";
 Install PlatformIO Core:
 
 ```bash
-pip install platformio
+uv tool install platformio
 ```
 
 Or use the [PlatformIO IDE extension for VS Code](https://platformio.org/install/ide?install=vscode).

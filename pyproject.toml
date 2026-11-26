@@ -1,0 +1,32 @@
+[project]
+name = "mechapulse"
+version = "0.1.0"
+description = "Industrial IoT machine-fault monitoring application"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi",
+    "numpy",
+    "pandas",
+    "pydantic",
+    "requests",
+    "scikit-learn",
+    "scipy",
+    "sounddevice",
+    "soundfile",
+    "streamlit",
+    "uvicorn",
+]
+
+[dependency-groups]
+notebooks = [
+    "ipywidgets",
+    "jupyter",
+    "librosa",
+    "matplotlib",
+    "noisereduce",
+    "notebook",
+    "seaborn",
+]
+
+[tool.uv]
+package = false
